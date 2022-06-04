@@ -15,6 +15,7 @@ import { sortServicesByName } from './sortServicesByName';
  * @param templates The loaded handlebar templates
  * @param outputPath Directory to write the generated files to
  * @param useUnionTypes Use union types instead of enums
+ * @param useCamelCaseProps Use camel case for schema property names
  * @param exportCore Generate core
  * @param exportServices Generate services
  * @param exportModels Generate models
@@ -27,6 +28,7 @@ export const writeClientIndex = async (
     templates: Templates,
     outputPath: string,
     useUnionTypes: boolean,
+    useCamelCaseProps: boolean,
     exportCore: boolean,
     exportServices: boolean,
     exportModels: boolean,
@@ -40,6 +42,7 @@ export const writeClientIndex = async (
         exportModels,
         exportSchemas,
         useUnionTypes,
+        useCamelCaseProps,
         postfix,
         clientName,
         server: client.server,

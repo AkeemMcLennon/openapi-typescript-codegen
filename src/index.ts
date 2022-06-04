@@ -19,6 +19,7 @@ export type Options = {
     clientName?: string;
     useOptions?: boolean;
     useUnionTypes?: boolean;
+    useCamelCaseProps?: boolean;
     exportCore?: boolean;
     exportServices?: boolean;
     exportModels?: boolean;
@@ -39,6 +40,7 @@ export type Options = {
  * @param clientName Custom client class name
  * @param useOptions Use options or arguments functions
  * @param useUnionTypes Use union types instead of enums
+ * @param useCamelCaseProps Use camel case for schema property names
  * @param exportCore Generate core client classes
  * @param exportServices Generate services
  * @param exportModels Generate models
@@ -55,6 +57,7 @@ export const generate = async ({
     clientName,
     useOptions = false,
     useUnionTypes = false,
+    useCamelCaseProps = false,
     exportCore = true,
     exportServices = true,
     exportModels = true,
@@ -69,6 +72,7 @@ export const generate = async ({
     const templates = registerHandlebarTemplates({
         httpClient,
         useUnionTypes,
+        useCamelCaseProps,
         useOptions,
     });
 
@@ -84,6 +88,7 @@ export const generate = async ({
                 httpClient,
                 useOptions,
                 useUnionTypes,
+                useCamelCaseProps,
                 exportCore,
                 exportServices,
                 exportModels,
@@ -107,6 +112,7 @@ export const generate = async ({
                 httpClient,
                 useOptions,
                 useUnionTypes,
+                useCamelCaseProps,
                 exportCore,
                 exportServices,
                 exportModels,

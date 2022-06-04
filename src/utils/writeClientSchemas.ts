@@ -15,6 +15,7 @@ import type { Templates } from './registerHandlebarTemplates';
  * @param outputPath Directory to write the generated files to
  * @param httpClient The selected httpClient (fetch, xhr, node or axios)
  * @param useUnionTypes Use union types instead of enums
+ * @param useCamelCaseProps Use camel case for schema property names
  * @param indent Indentation options (4, 2 or tab)
  */
 export const writeClientSchemas = async (
@@ -23,6 +24,7 @@ export const writeClientSchemas = async (
     outputPath: string,
     httpClient: HttpClient,
     useUnionTypes: boolean,
+    useCamelCaseProps: boolean,
     indent: Indent
 ): Promise<void> => {
     for (const model of models) {
@@ -31,6 +33,7 @@ export const writeClientSchemas = async (
             ...model,
             httpClient,
             useUnionTypes,
+            useCamelCaseProps,
         });
         await writeFile(file, i(f(templateResult), indent));
     }

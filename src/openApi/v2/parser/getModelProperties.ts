@@ -1,3 +1,5 @@
+import camelCase from 'camelcase';
+
 import type { Model } from '../../../client/interfaces/Model';
 import { getPattern } from '../../../utils/getPattern';
 import type { OpenApi } from '../interfaces/OpenApi';
@@ -19,6 +21,7 @@ export const getModelProperties = (openApi: OpenApi, definition: OpenApiSchema, 
                 const model = getType(property.$ref);
                 models.push({
                     name: escapeName(propertyName),
+                    nameCamelCase: camelCase(propertyName),
                     export: 'reference',
                     type: model.type,
                     base: model.base,

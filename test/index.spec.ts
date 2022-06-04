@@ -32,6 +32,7 @@ describe('v3', () => {
             httpClient: HttpClient.FETCH,
             useOptions: false,
             useUnionTypes: false,
+            useCamelCaseProps: false,
             exportCore: true,
             exportSchemas: true,
             exportModels: true,
@@ -44,3 +45,26 @@ describe('v3', () => {
         });
     });
 });
+
+describe('v3', () => {
+    it('should generate', async () => {
+        await generate({
+            input: './test/spec/v3.json',
+            output: './test/generated/camel/',
+            httpClient: HttpClient.FETCH,
+            useOptions: false,
+            useUnionTypes: false,
+            useCamelCaseProps: false,
+            exportCore: true,
+            exportSchemas: true,
+            exportModels: true,
+            exportServices: true,
+        });
+
+        sync('./test/generated/v3/**/*.ts').forEach(file => {
+            const content = readFileSync(file, 'utf8').toString();
+            expect(content).toMatchSnapshot(file);
+        });
+    });
+});
+

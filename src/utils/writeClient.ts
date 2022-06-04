@@ -22,6 +22,7 @@ import { writeClientServices } from './writeClientServices';
  * @param httpClient The selected httpClient (fetch, xhr, node or axios)
  * @param useOptions Use options or arguments functions
  * @param useUnionTypes Use union types instead of enums
+ * @param useCamelCaseProps Use camel case for schema property names
  * @param exportCore Generate core client classes
  * @param exportServices Generate services
  * @param exportModels Generate models
@@ -39,6 +40,7 @@ export const writeClient = async (
     httpClient: HttpClient,
     useOptions: boolean,
     useUnionTypes: boolean,
+    useCamelCaseProps: boolean,
     exportCore: boolean,
     exportServices: boolean,
     exportModels: boolean,
@@ -73,6 +75,7 @@ export const writeClient = async (
             outputPathServices,
             httpClient,
             useUnionTypes,
+            useCamelCaseProps,
             useOptions,
             indent,
             postfix,
@@ -83,13 +86,29 @@ export const writeClient = async (
     if (exportSchemas) {
         await rmdir(outputPathSchemas);
         await mkdir(outputPathSchemas);
-        await writeClientSchemas(client.models, templates, outputPathSchemas, httpClient, useUnionTypes, indent);
+        await writeClientSchemas(
+            client.models,
+            templates,
+            outputPathSchemas,
+            httpClient,
+            useUnionTypes,
+            useCamelCaseProps,
+            indent
+        );
     }
 
     if (exportModels) {
         await rmdir(outputPathModels);
         await mkdir(outputPathModels);
-        await writeClientModels(client.models, templates, outputPathModels, httpClient, useUnionTypes, indent);
+        await writeClientModels(
+            client.models,
+            templates,
+            outputPathModels,
+            httpClient,
+            useUnionTypes,
+            useCamelCaseProps,
+            indent
+        );
     }
 
     if (isDefined(clientName)) {
@@ -104,6 +123,7 @@ export const writeClient = async (
             templates,
             outputPath,
             useUnionTypes,
+            useCamelCaseProps,
             exportCore,
             exportServices,
             exportModels,

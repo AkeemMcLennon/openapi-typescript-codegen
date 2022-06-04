@@ -20,7 +20,7 @@ export type {{{name}}} = {
 	{{/if}}
 	 */
 	{{/ifdef}}
-	{{>isReadOnly}}{{{name}}}{{>isRequired}}: {{>type parent=../name}};
+	{{>isReadOnly}}{{>propertyName}}{{>isRequired}}: {{>type parent=../name}};
 	{{/each}}
 };
 {{#if enums}}
